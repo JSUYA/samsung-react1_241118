@@ -1,0 +1,28 @@
+.hloader {
+  --hloader-color: #e96900;
+  --hloader-size: 100px;
+  --hloader-weight: 4;
+  --hloader-duration: 1.5s;
+  width: var(--hloader-size);
+  height: var(--hloader-size);
+  color: var(--hloader-color);
+}
+.hloader svg {
+  animation: hloader-svg var(--hloader-duration) linear infinite;
+}
+.hloader circle {
+  animation: hloader-circle var(--hloader-duration) linear infinite;
+  fill: transparent;
+  stroke-width: var(--hloader-weight);
+  stroke-dasharray: 80, 200;
+  stroke-dashoffset: 0px;
+  stroke: currentColor;
+}
+@keyframes hloader-svg {
+  100% { transform: rotate(1turn); }
+}
+@keyframes hloader-circle { 
+  0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0px; } 
+  50% { stroke-dasharray: 100, 200; stroke-dashoffset: -15px; } 
+  100% { stroke-dasharray: 100, 200; stroke-dashoffset: -124px; }
+}
