@@ -1,5 +1,9 @@
 import { create } from 'zustand'
 
 export const useMovieStore = create(() => {
-  return {}
+  return {
+    searchText: '',
+    movies: [],
+    setSearchText: () => {}
+  }
 })
