@@ -13,8 +13,8 @@ export default function About() {
         }}
         exit={{ position: 'absolute' }}
         transition={{
-          width: { duration: 3, delay: 1 },
-          backgroundColor: { duration: 3, delay: 1, ease: 'easeInOut' } // backgroundColor도 부드럽게
+          width: { duration: 1, delay: 0.3 },
+          backgroundColor: { duration: 1, delay: 0.3, ease: 'easeInOut' } // backgroundColor도 부드럽게
         }}>
         <div style={{ height: '100px' }}></div>
       </motion.div>
