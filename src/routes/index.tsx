@@ -7,6 +7,7 @@ import About from './pages/About'
 import Notfound from './pages/Notfound'
 import Dashboard from './pages/Dashboard'
 import SignIn from './pages/SignIn'
+import Delay from './pages/Delay'
 import { requiresAuth } from './loaders/requiresAuth'
 
 const router = createHashRouter([
@@ -42,6 +43,10 @@ const router = createHashRouter([
       {
         path: '/signin',
         element: <SignIn />
+      },
+      {
+        path: '/delay',
+        element: <Delay />
       }
     ]
   },

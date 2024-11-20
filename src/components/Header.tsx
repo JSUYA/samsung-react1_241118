@@ -5,7 +5,8 @@ const navigations = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/movies', label: 'Movies' },
-  { to: '/dashboard', label: 'Dashboard' }
+  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/delay', label: 'Delay' }
 ]
 
 //컴포넌트는 보통 파스칼로 씀
