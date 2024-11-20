@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom'
 import { useMovieStore } from '@/stores/movie'
 import { useEffect } from 'react'
 import Modal from '@/components/Modal'
-import Loader from '@/components/Loader'
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams()
@@ -16,27 +15,22 @@ export default function MovieDetailsPage() {
   }, [movieId])
 
   return (
-    <Modal>
+    <Modal loading={isLoading}>
       <h1> Movie Details Page</h1>
-
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          {currentMovie && (
-            <>
-              <h2>{currentMovie.Title}</h2>
-              <img
-                src={currentMovie.Poster}
-                alt={currentMovie.Title}
-              />
-              <p>{currentMovie.Director}</p>
-              <p>{currentMovie.Plot}</p>
-              <p>{currentMovie.Actors}</p>
-            </>
-          )}
-        </>
-      )}
+      <>
+        {currentMovie && (
+          <>
+            <h2>{currentMovie.Title}</h2>
+            <img
+              src={currentMovie.Poster}
+              alt={currentMovie.Title}
+            />
+            <p>{currentMovie.Director}</p>
+            <p>{currentMovie.Plot}</p>
+            <p>{currentMovie.Actors}</p>
+          </>
+        )}
+      </>
     </Modal>
   )
 }

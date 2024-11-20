@@ -1,7 +1,15 @@
 import styles from './Modal.module.css'
 import { useNavigate } from 'react-router-dom'
+import Loader from '@/components/Loader'
+import clsx from 'clsx'
 
-export default function Modal({ children }: { children: React.ReactNode }) {
+export default function Modal({
+  children,
+  loading
+}: {
+  children: React.ReactNode
+  loading: boolean
+}) {
   const navigate = useNavigate()
 
   function offModal() {
@@ -13,7 +21,10 @@ export default function Modal({ children }: { children: React.ReactNode }) {
       <div
         className={styles.overlay}
         onClick={() => offModal()}></div>
-      <div className={styles.content}>{children}</div>
+      <div
+        className={clsx(styles.content, loading ? styles.content_loading : '')}>
+        {loading ? <Loader /> : children}
+      </div>
     </div>
   )
 }
