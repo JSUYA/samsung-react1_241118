@@ -11,6 +11,7 @@ export default function DelayPage() {
   return (
     <>
       <h1>DelayPage</h1>
+      <DelayedData time={0} />
       <DelayedData time={1000} />
       <DelayedData time={2000} />
       <DelayedData time={3000} />

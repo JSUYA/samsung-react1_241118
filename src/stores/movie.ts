@@ -57,18 +57,6 @@ export const useMovieStore = create(
             searchText: text
           })
         },
-        fetchMovies: async () => {
-          const { searchText } = get()
-          const res = await fetch(
-            `https://omdbapi.com/?apikey=7035c60c&s=${searchText}`
-          )
-          const { Search, Error } = await res.json()
-          if (!Error) {
-            set({
-              movies: Search
-            })
-          }
-        },
         fetchMovieDetails: async (movieId: string) => {
           set({
             isLoading: true
