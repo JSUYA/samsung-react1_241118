@@ -1,11 +1,4 @@
-import {
-  useQuery,
-  queryOptions,
-  keepPreviousData,
-  useMutation,
-  useQueryClient
-} from '@tanstack/react-query'
-import { useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 // type ResponseValue = Todo[] // 할 일 목록
 
@@ -18,14 +11,14 @@ export interface Todo {
   updatedAt: string // 할 일 수정일mutate
 }
 
-interface ResponseValue {
-  id: string
-  order: number
-  title: string
-  done: boolean
-  createdAt: string
-  updatedAt: string
-}
+// interface ResponseValue {
+//   id: string
+//   order: number
+//   title: string
+//   done: boolean
+//   createdAt: string
+//   updatedAt: string
+// }
 
 const headers = {
   'content-type': 'application/json',

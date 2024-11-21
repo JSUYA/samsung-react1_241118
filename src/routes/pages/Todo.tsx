@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom'
 import Modal from '@/components/Modal'
-import { useFetchTodos, useUpdateTodo, type Todo } from '@/hook/todo'
+import { useFetchTodos, type Todo } from '@/hook/todo'
 import { useState, useEffect } from 'react'
 
 export default function Todo() {
   const [title, setTitle] = useState('')
   const { todoId } = useParams()
   const { data: todos } = useFetchTodos()
-  const { mutate } = useUpdateTodo()
+  // const { mutate } = useUpdateTodo()
 
   let todo: Todo | undefined
   todo = todos?.find(todo => todo.id === todoId)
