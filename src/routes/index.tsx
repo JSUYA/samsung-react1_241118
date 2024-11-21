@@ -8,6 +8,8 @@ import Notfound from './pages/Notfound'
 import Dashboard from './pages/Dashboard'
 import SignIn from './pages/SignIn'
 import Delay from './pages/Delay'
+import Todos from './pages/Todos'
+import Todo from './pages/Todo'
 import { requiresAuth } from './loaders/requiresAuth'
 
 const router = createHashRouter([
@@ -47,6 +49,16 @@ const router = createHashRouter([
       {
         path: '/delay',
         element: <Delay />
+      },
+      {
+        path: '/todos',
+        element: <Todos />,
+        children: [
+          {
+            path: '/todos/:todoId',
+            element: <Todo />
+          }
+        ]
       }
     ]
   },

@@ -45,6 +45,7 @@ export interface MovieRating {
 export const useMovieStore = create(
   combine(
     {
+      inputText: '',
       searchText: '',
       movies: [] as Movie[],
       currentMovie: null as null | MovieDetails,
@@ -55,6 +56,11 @@ export const useMovieStore = create(
         setSearchText: (text: string) => {
           set({
             searchText: text
+          })
+        },
+        setInputText: (text: string) => {
+          set({
+            inputText: text
           })
         },
         fetchMovieDetails: async (movieId: string) => {

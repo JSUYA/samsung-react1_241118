@@ -5,10 +5,10 @@ import clsx from 'clsx'
 
 export default function Modal({
   children,
-  loading
+  loading = false
 }: {
   children: React.ReactNode
-  loading: boolean
+  loading?: boolean
 }) {
   const navigate = useNavigate()
 
