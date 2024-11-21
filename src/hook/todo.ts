@@ -15,7 +15,7 @@ export interface Todo {
   title: string // 할 일 제목
   done: boolean // 할 일 완료 여부
   createdAt: string // 할 일 생성일
-  updatedAt: string // 할 일 수정일
+  updatedAt: string // 할 일 수정일mutate
 }
 
 interface ResponseValue {
