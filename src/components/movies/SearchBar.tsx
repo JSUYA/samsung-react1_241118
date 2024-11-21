@@ -1,5 +1,5 @@
 import { useMovieStore } from '@/stores/movie'
-import { useMovies, getMoviesQueryOption } from '@/hook/movie'
+
 import { useQueryClient } from '@tanstack/react-query'
 
 export default function SearchBar() {
@@ -7,7 +7,7 @@ export default function SearchBar() {
   const searchText = useMovieStore(state => state.searchText)
   const setSearchText = useMovieStore(state => state.setSearchText)
   const setInputText = useMovieStore(state => state.setInputText)
-  const queryClient = useQueryClient()
+
   console.log('called SearchBar')
 
   function fetchMovies() {

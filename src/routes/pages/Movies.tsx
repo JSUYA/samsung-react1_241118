@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import SearchBar from '@/components/movies/SearchBar'
-import { useMovieStore } from '@/stores/movie'
+// import { useMovieStore } from '@/stores/movie'
 import MovieList from '@/components/movies/MovieList'
 
 export default function Movies() {

@@ -1,6 +1,5 @@
-import { useQuery, queryOptions, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, queryOptions } from '@tanstack/react-query'
 import { useMovieStore } from '@/stores/movie'
-import { useState } from 'react'
 
 interface Movie {
   Title: string
