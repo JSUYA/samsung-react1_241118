@@ -1,6 +1,6 @@
 import { useMovieStore } from '@/stores/movie'
 
-import { useQueryClient } from '@tanstack/react-query'
+// import { useQueryClient } from '@tanstack/react-query'
 
 export default function SearchBar() {
   const inputText = useMovieStore(state => state.inputText)
