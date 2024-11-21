@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 // type ResponseValue = Todo[] // 할 일 목록
 
-interface Todo {
+export interface Todo {
   id: string // 할 일 ID
   order: number // 할 일 순서
   title: string // 할 일 제목
