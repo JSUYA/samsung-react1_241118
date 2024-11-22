@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { filter } from 'framer-motion/client'
+
 import { create } from 'zustand'
 import { combine } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
@@ -27,7 +27,7 @@ export interface Todo {
 const headers = {
   'content-type': 'application/json',
   apikey: 'KDT8_bcAWVpD8',
-  username: 'KDT8_ParkYoungWoong'
+  username: 'KDT8_JSUYA'
 }
 
 type FilterStatus = 'all' | 'todo' | 'done'
