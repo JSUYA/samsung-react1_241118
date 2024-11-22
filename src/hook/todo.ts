@@ -81,6 +81,7 @@ export function useCreateTodo() {
       const res = await fetch('/api/todos', {
         method: 'POST',
         body: JSON.stringify({
+          method: 'POST',
           data: {
             title
           }
@@ -134,6 +135,7 @@ export function useUpdateTodo() {
   return useMutation({
     mutationFn: async (todo: Todo) => {
       const res = await fetch('/api/todos', {
+        method: 'POST',
         body: JSON.stringify({
           endpoint: todo.id,
           method: 'PUT',
@@ -161,6 +163,7 @@ export function useDeleteTodo() {
   return useMutation({
     mutationFn: async (todo: Todo) => {
       await fetch('/api/todos', {
+        method: 'POST',
         body: JSON.stringify({
           endpoint: todo.id,
           method: 'DELETE'
