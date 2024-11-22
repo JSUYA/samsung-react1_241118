@@ -1,13 +1,14 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Modal from '@/components/Modal'
-import { useFetchTodos, type Todo } from '@/hook/todo'
+import { useFetchTodos, useUpdateTodo, type Todo } from '@/hook/todo'
 import { useState, useEffect } from 'react'
 
 export default function Todo() {
   const [title, setTitle] = useState('')
   const { todoId } = useParams()
   const { data: todos } = useFetchTodos()
-  // const { mutate } = useUpdateTodo()
+  const navigate = useNavigate()
+  const { mutateAsync, error } = useUpdateTodo()
 
   let todo: Todo | undefined
   todo = todos?.find(todo => todo.id === todoId)
@@ -15,7 +16,27 @@ export default function Todo() {
     setTitle(todo?.title || '')
   }, [todo, todoId])
 
-  function onChangeTitle() {}
+  async function save() {
+    if (!todo) return
+    const _title = title.trim()
+    if (!_title) return
+    if (todo.title === title) return
+    await mutateAsync({
+      ...todo,
+      title
+    })
+
+    if (error) {
+      alert(error.message)
+      return
+    }
+
+    cancel()
+  }
+
+  function cancel() {
+    navigate(-1)
+  }
 
   return (
     <Modal>
@@ -32,12 +53,11 @@ export default function Todo() {
                 rows={4}
                 onChange={e => setTitle(e.target.value)}></textarea>
             </div>
-            <button
-              onClick={() => {
-                onChangeTitle
-              }}>
-              저장버튼
-            </button>
+            <div>
+              <button onClick={() => save()}>저장</button>
+              <button onClick={() => cancel()}>취소</button>
+            </div>
+
             <div>{todo.createdAt}</div>
             <div>{todo.updatedAt}</div>
           </>
