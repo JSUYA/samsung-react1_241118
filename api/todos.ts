@@ -12,18 +12,22 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     method = 'GET',
     data
   } = (JSON.parse(req.body || '{}') || {}) as Partial<RequestBody>
-  const response = await fetch(
-    `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${endpoint}`,
-    {
-      method,
-      headers: {
-        'content-type': 'application/json',
-        apikey: process.env.TODO_APIKEY || '',
-        username: process.env.TODO_USERNAME || ''
-      },
-      body: JSON.stringify(data)
-    }
-  )
-  const json = await response.json()
-  res.status(200).json(json)
+  try {
+    const response = await fetch(
+      `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${endpoint}`,
+      {
+        method,
+        headers: {
+          'content-type': 'application/json',
+          apikey: process.env.TODO_APIKEY || '',
+          username: process.env.TODO_USERNAME || ''
+        },
+        body: JSON.stringify(data)
+      }
+    )
+    const json = await response.json()
+    res.status(200).json(json)
+  } catch (e) {
+    console.log(e)
+  }
 }
