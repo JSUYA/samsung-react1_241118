@@ -1,29 +1,38 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import Modal from '@/components/Modal'
-import { useFetchTodos, useUpdateTodo, type Todo } from '@/hook/todo'
+import {
+  useFetchTodos,
+  useUpdateTodo,
+  useDeleteTodo,
+  type Todo
+} from '@/hook/todo'
 import { useState, useEffect } from 'react'
 
 export default function Todo() {
   const [title, setTitle] = useState('')
+  const [done, setDone] = useState(false)
   const { todoId } = useParams()
   const { data: todos } = useFetchTodos()
   const navigate = useNavigate()
   const { mutateAsync, error } = useUpdateTodo()
+  const { mutateAsync: mutateRemoveAsync, error: removeError } = useDeleteTodo()
 
   let todo: Todo | undefined
   todo = todos?.find(todo => todo.id === todoId)
   useEffect(() => {
     setTitle(todo?.title || '')
+    setDone(todo?.done || false)
   }, [todo, todoId])
 
-  async function save() {
+  async function updateTodo() {
     if (!todo) return
     const _title = title.trim()
     if (!_title) return
-    if (todo.title === title) return
+    // if (todo.title === title) return
     await mutateAsync({
       ...todo,
-      title
+      title: _title,
+      done
     })
 
     if (error) {
@@ -31,11 +40,26 @@ export default function Todo() {
       return
     }
 
-    cancel()
+    cancelTodo()
   }
 
-  function cancel() {
+  function cancelTodo() {
     navigate(-1)
+  }
+
+  async function removeTodo() {
+    if (!todo) return
+    await mutateRemoveAsync({
+      ...todo,
+      title
+    })
+
+    if (removeError) {
+      alert(removeError.message)
+      return
+    }
+
+    cancelTodo()
   }
 
   return (
@@ -44,7 +68,14 @@ export default function Todo() {
       <>
         {todo && (
           <>
-            <div>{JSON.stringify(todo.done)}</div>
+            <div>
+              {/* {JSON.stringify(todo.done)} */}
+              <input
+                type="checkbox"
+                checked={done}
+                onChange={e => setDone(e.target.checked)}
+              />
+            </div>
 
             <div>
               <textarea
@@ -54,8 +85,9 @@ export default function Todo() {
                 onChange={e => setTitle(e.target.value)}></textarea>
             </div>
             <div>
-              <button onClick={() => save()}>저장</button>
-              <button onClick={() => cancel()}>취소</button>
+              <button onClick={() => updateTodo()}>저장</button>
+              <button onClick={() => cancelTodo()}>취소</button>
+              <button onClick={() => removeTodo()}>삭제</button>
             </div>
 
             <div>{todo.createdAt}</div>

@@ -17,17 +17,24 @@ export default function TodosPage() {
     <>
       <h1>Todos!</h1>
 
-      <input
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        onKeyDown={e => e.key === 'Enter' && createTodo(e)}
-      />
-      <button
-        onClick={() => {
-          createTodo()
-        }}>
-        추가
-      </button>
+      <div>
+        <input
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && createTodo(e)}
+        />
+        <button
+          onClick={() => {
+            createTodo()
+          }}>
+          추가
+        </button>
+      </div>
+      <div>
+        <button onClick={() => {}}>전체</button>
+        <button onClick={() => {}}>할 일</button>
+        <button onClick={() => {}}>왼료</button>
+      </div>
 
       {isLoading ? (
         <Loader />

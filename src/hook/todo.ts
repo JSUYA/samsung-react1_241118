@@ -131,3 +131,30 @@ export function useUpdateTodo() {
     onSettled: () => {}
   })
 }
+
+export function useDeleteTodo() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (todo: Todo) => {
+      const res = await fetch(
+        `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${todo.id}`,
+        {
+          method: 'DELETE',
+          headers
+        }
+      )
+      return await res.json()
+    },
+    onMutate: () => {},
+    //Mutation이 보내지고 성공 결과가 돌아왔을때
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['todos']
+      })
+    },
+    //Mutation이 보내지고 에러 결과가 돌아왔을때
+    onError: () => {},
+    //Mutation이 보내지고 성공 실패 여부 관계 없이(항상 마지막에 실행됨)
+    onSettled: () => {}
+  })
+}
