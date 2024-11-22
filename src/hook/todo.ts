@@ -24,12 +24,6 @@ export interface Todo {
 //   updatedAt: string
 // }
 
-const headers = {
-  'content-type': 'application/json',
-  apikey: 'KDT8_bcAWVpD8',
-  username: 'KDT8_JSUYA'
-}
-
 type FilterStatus = 'all' | 'todo' | 'done'
 
 export const useTodoFilterStore = create(
