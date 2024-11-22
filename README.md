@@ -1,3 +1,8 @@
+https://curse-battery-d1c.notion.site/24-11-Web-Front-End-React-Next-125c672eb95e8084a828cae0b5c9d1c7
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
