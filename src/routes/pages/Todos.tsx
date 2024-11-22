@@ -1,4 +1,4 @@
-import { useFetchTodos, useCreateTodo } from '@/hook/todo'
+import { useFetchTodos, useCreateTodo, useTodoFilterStore } from '@/hook/todo'
 import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import Loader from '@/components/Loader'
@@ -7,6 +7,9 @@ export default function TodosPage() {
   const [title, setTitle] = useState('')
   const { data: todos, isLoading } = useFetchTodos()
   const { mutate } = useCreateTodo()
+  const setTodoFilterStatus = useTodoFilterStore(
+    state => state.setTodoFilterStatus
+  )
 
   function createTodo(event?: React.KeyboardEvent<HTMLInputElement>) {
     if (event?.nativeEvent.isComposing) return
@@ -31,9 +34,24 @@ export default function TodosPage() {
         </button>
       </div>
       <div>
-        <button onClick={() => {}}>전체</button>
-        <button onClick={() => {}}>할 일</button>
-        <button onClick={() => {}}>왼료</button>
+        <button
+          onClick={() => {
+            setTodoFilterStatus('all')
+          }}>
+          전체
+        </button>
+        <button
+          onClick={() => {
+            setTodoFilterStatus('todo')
+          }}>
+          할 일
+        </button>
+        <button
+          onClick={() => {
+            setTodoFilterStatus('done')
+          }}>
+          왼료
+        </button>
       </div>
 
       {isLoading ? (
@@ -45,6 +63,11 @@ export default function TodosPage() {
               return (
                 <>
                   <li key={todo.id}>
+                    <input
+                      type="checkbox"
+                      checked={todo.done}
+                      disabled={true}
+                    />
                     <Link to={`/todos/${todo.id}`}>{todo.title}</Link>
                   </li>
                 </>

@@ -1,4 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { filter } from 'framer-motion/client'
+import { create } from 'zustand'
+import { combine } from 'zustand/middleware'
+import { immer } from 'zustand/middleware/immer'
 
 // type ResponseValue = Todo[] // 할 일 목록
 
@@ -26,7 +30,28 @@ const headers = {
   username: 'KDT8_ParkYoungWoong'
 }
 
+type FilterStatus = 'all' | 'todo' | 'done'
+
+export const useTodoFilterStore = create(
+  immer(
+    combine(
+      {
+        filterStatus: <FilterStatus>'all'
+      },
+      set => ({
+        setTodoFilterStatus(filter: FilterStatus) {
+          set(state => {
+            state.filterStatus = filter
+          })
+        }
+      })
+    )
+  )
+)
+
 export function useFetchTodos() {
+  const filterStatus = useTodoFilterStore(state => state.filterStatus)
+
   return useQuery<Todo[]>({
     queryKey: ['todos'],
     queryFn: async () => {
@@ -40,7 +65,19 @@ export function useFetchTodos() {
       //
       return await res.json()
     },
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5,
+    select: todos => {
+      return todos.filter(todo => {
+        switch (filterStatus) {
+          case 'all':
+            return true
+          case 'todo':
+            return !todo.done
+          case 'done':
+            return todo.done
+        }
+      })
+    }
   })
 }
 
