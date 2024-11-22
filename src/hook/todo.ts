@@ -38,7 +38,7 @@ export function useFetchTodos() {
     queryKey: ['todos'],
     queryFn: async () => {
       const res = await fetch('/api/todos', {
-        method: 'GET',
+        method: 'POST',
         body: JSON.stringify({
           metohd: 'GET'
         })

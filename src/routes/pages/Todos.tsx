@@ -61,16 +61,14 @@ export default function TodosPage() {
           {todos &&
             todos.map(todo => {
               return (
-                <>
-                  <li key={todo.id}>
-                    <input
-                      type="checkbox"
-                      checked={todo.done}
-                      disabled={true}
-                    />
-                    <Link to={`/todos/${todo.id}`}>{todo.title}</Link>
-                  </li>
-                </>
+                <li key={todo.id}>
+                  <input
+                    type="checkbox"
+                    checked={todo.done}
+                    disabled={true}
+                  />
+                  <Link to={`/todos/${todo.id}`}>{todo.title}</Link>
+                </li>
               )
             })}
         </ul>
