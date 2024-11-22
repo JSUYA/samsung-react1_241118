@@ -55,14 +55,9 @@ export function useFetchTodos() {
   return useQuery<Todo[]>({
     queryKey: ['todos'],
     queryFn: async () => {
-      const res = await fetch(
-        'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos',
-        {
-          method: 'GET',
-          headers
-        }
-      )
-      //
+      const res = await fetch('/api/todos', {
+        method: 'POST'
+      })
       return await res.json()
     },
     staleTime: 1000 * 60 * 5,
@@ -86,19 +81,16 @@ export function useCreateTodo() {
   return useMutation({
     //서버로 보낼때 (변화?를 줄때)
     mutationFn: async (title: string) => {
-      const res = await fetch(
-        'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos',
-        {
+      const res = await fetch('/api/todos', {
+        method: 'POST',
+        body: JSON.stringify({
           method: 'POST',
-          headers,
-          body: JSON.stringify({ title })
-        }
-      )
-      //
-      const data = await res.json()
-      console.log(data)
-
-      return data
+          data: {
+            title
+          }
+        })
+      })
+      return await res.json()
     },
     /*try-catch 구문과 비슷*/
     //Motation이 호출된 시점
@@ -145,14 +137,14 @@ export function useUpdateTodo() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (todo: Todo) => {
-      const res = await fetch(
-        `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${todo.id}`,
-        {
-          method: 'PUT', //수정
-          headers,
-          body: JSON.stringify(todo)
-        }
-      )
+      const res = await fetch('/api/todos', {
+        method: 'POST',
+        body: JSON.stringify({
+          endpoint: todo.id,
+          method: 'PUT',
+          data: todo
+        })
+      })
       return await res.json()
     },
     onMutate: () => {},
@@ -173,14 +165,13 @@ export function useDeleteTodo() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (todo: Todo) => {
-      const res = await fetch(
-        `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${todo.id}`,
-        {
-          method: 'DELETE',
-          headers
-        }
-      )
-      return await res.json()
+      await fetch('/api/todos', {
+        method: 'POST',
+        body: JSON.stringify({
+          endpoint: todo.id,
+          method: 'DELETE'
+        })
+      })
     },
     onMutate: () => {},
     //Mutation이 보내지고 성공 결과가 돌아왔을때
