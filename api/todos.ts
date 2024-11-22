@@ -1,4 +1,4 @@
-import axios from 'axios'
+import fetch from 'node-fetch'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 interface RequestBody {
@@ -11,18 +11,19 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     endpoint = '',
     method = 'GET',
     data
-  } = (req.body || {}) as Partial<RequestBody>
-  const { data: responseValue } = await axios({
-    url: `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${endpoint}`,
-    method,
-    headers: {
-      'content-type': 'application/json',
-      //       TODO_APIKEY='KDT8_bcAWVpD8'
-      // TODO_USERNAME='KDT8_JSUYA'
-      apikey: 'KDT8_bcAWVpD8',
-      username: 'KDT8_JSUYA'
-    },
-    data
-  })
-  res.status(200).json(responseValue)
+  } = (JSON.parse(req.body || '{}') || {}) as Partial<RequestBody>
+  const response = await fetch(
+    `https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${endpoint}`,
+    {
+      method,
+      headers: {
+        'content-type': 'application/json',
+        apikey: process.env.TODO_APIKEY || '',
+        username: process.env.TODO_USERNAME || ''
+      },
+      body: JSON.stringify(data)
+    }
+  )
+  const json = await response.json()
+  res.status(200).json(json)
 }
