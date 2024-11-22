@@ -1,10 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-
 import { create } from 'zustand'
 import { combine } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-
-// type ResponseValue = Todo[] // 할 일 목록
 
 export interface Todo {
   id: string // 할 일 ID
@@ -14,15 +11,6 @@ export interface Todo {
   createdAt: string // 할 일 생성일
   updatedAt: string // 할 일 수정일mutate
 }
-
-// interface ResponseValue {
-//   id: string
-//   order: number
-//   title: string
-//   done: boolean
-//   createdAt: string
-//   updatedAt: string
-// }
 
 type FilterStatus = 'all' | 'todo' | 'done'
 
@@ -50,7 +38,7 @@ export function useFetchTodos() {
     queryKey: ['todos'],
     queryFn: async () => {
       const res = await fetch('/api/todos', {
-        method: 'POST',
+        method: 'GET',
         body: JSON.stringify({
           metohd: 'GET'
         })
